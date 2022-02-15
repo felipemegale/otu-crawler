@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/Arch Linux) (preloaded format=pdflatex 2022.2.2)  15 FEB 2022 17:41
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/Arch Linux) (preloaded format=pdflatex 2022.2.2)  15 FEB 2022 18:10
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -363,34 +363,34 @@ File: img/net_6_degree_distribution.png Graphic file (type png)
 <use img/net_6_degree_distribution.png>
 Package pdftex.def Info: img/net_6_degree_distribution.png  used on input line 33.
 (pdftex.def)             Requested size: 175.49881pt x 117.00177pt.
+ [6
 
-Overfull \hbox (33.79626pt too wide) in paragraph at lines 63--86
+
+
+] [7 <./img/net_0_degree_distribution.png> <./img/net_1_degree_distribution.png> <./img/net_2_degree_distribution.png> <./img/net_3_degree_distribution.png> <./img/net_4_degree_distribution.png> <./img/net_6_degree_distribution.png>]
+Overfull \hbox (33.79626pt too wide) in paragraph at lines 64--89
  [][] 
  []
 
-[6
-
-
-
-] [7 <./img/net_0_degree_distribution.png> <./img/net_1_degree_distribution.png> <./img/net_2_degree_distribution.png> <./img/net_3_degree_distribution.png> <./img/net_4_degree_distribution.png> <./img/net_6_degree_distribution.png>]) [8]
+) [8]
 No file Major_project_proposal.bbl.
 (./Major_project_proposal.aux (./tex/01_pre_processing.aux) (./tex/02_analyses_6_nets.aux) (./tex/03_statistics.aux))
 Package rerunfilecheck Info: File `Major_project_proposal.out' has not changed.
 (rerunfilecheck)             Checksum: 4171AA74A71A7089B2C3DF01C241EEB9;1316.
  ) 
 Here is how much of TeX's memory you used:
- 10472 strings out of 478353
- 172187 string characters out of 5854636
- 462887 words of memory out of 5000000
- 28410 multiletter control sequences out of 15000+600000
+ 10473 strings out of 478353
+ 172217 string characters out of 5854636
+ 461937 words of memory out of 5000000
+ 28411 multiletter control sequences out of 15000+600000
  413793 words of font info for 66 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  60i,11n,63p,1015b,450s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on Major_project_proposal.pdf (8 pages, 997162 bytes).
+Output written on Major_project_proposal.pdf (8 pages, 998099 bytes).
 PDF statistics:
- 191 PDF objects out of 1000 (max. 8388607)
- 139 compressed objects within 2 object streams
+ 193 PDF objects out of 1000 (max. 8388607)
+ 141 compressed objects within 2 object streams
  40 named destinations out of 1000 (max. 500000)
  141 words of extra memory for PDF output out of 10000 (max. 10000000)
 
