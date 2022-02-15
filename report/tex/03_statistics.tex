@@ -45,12 +45,13 @@ where $e_i$ is the number of edges between the neighbors of node $i$.
 The average clustering coefficient of the graph is calculated as
 \begin{equation}
     <C> = \frac{1}{N}\sum_{i}^{N}C_i
+    \label{equation:avg_clustering_coef}
 \end{equation}
 where $N$ is the number of nodes in the graph, and $C_i$ is the clustering coefficient of node $i$.
 
-\textbf{Number of nodes in strongly connected component (SCC).}
+\textbf{Number of nodes in strongly connected component (SCC).} The strongly connected component (SCC) metric can only be obtained from directed graphs. Since only the first network, then it is the only one that can provide this value. For networks 2 through 5, and 7, the values are from the connected components. Refer to table \ref{table:1} for the values.
 
-\textbf{Number of nodes in weakly connected component (WCC).}
+\textbf{Number of nodes in weakly connected component (WCC).} The weakly connected component (WCC) metric can only be obtained from directed graphs. Since only the first network, then it is the only one that can provide this value. For networks 2 through 5, and 7, the values are from the connected components. Refer to table \ref{table:1} for the values.
 
 \textbf{Average path length in SCC.}
 
@@ -72,9 +73,11 @@ where $N$ is the number of nodes in the graph, and $C_i$ is the clustering coeff
         \hline
         Avg. Clust. Coef. & 0.375 & 0.412 & 0.482 & 0.583 & 0.620 & 0.542 \\
         \hline
-        Num. Nodes SCC &  &  &  &  &  &  \\
+        Num. Nodes SCC & 49 & - & - & - & - & - \\
         \hline
-        Num. Nodes WCC &  &  &  &  &  &  \\
+        Num. Nodes WCC & 58 & - & - & - & - & - \\
+        \hline
+        Num. Nodes CC & - & 52 & 42 & 20 & 10 & 59 \\
         \hline
         Avg. Path Len. SCC &  &  &  &  &  &  \\
         \hline
