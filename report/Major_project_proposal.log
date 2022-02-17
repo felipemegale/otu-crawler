@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/Arch Linux) (preloaded format=pdflatex 2022.2.2)  15 FEB 2022 22:31
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/Arch Linux) (preloaded format=pdflatex 2022.2.2)  16 FEB 2022 10:29
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -285,14 +285,14 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
  (./tex/02_analyses_6_nets.tex
 pdfTeX warning (ext1): too large image resolution ignored
-<img/net_0.png, id=58, 1027.84pt x 770.88pt>
+<img/net_0.png, id=98, 1027.84pt x 770.88pt>
 File: img/net_0.png Graphic file (type png)
 <use img/net_0.png>
 Package pdftex.def Info: img/net_0.png  used on input line 12.
 (pdftex.def)             Requested size: 175.49881pt x 131.62424pt.
 
 pdfTeX warning (ext1): too large image resolution ignored
-<img/net_1.png, id=59, 1027.84pt x 770.88pt>
+<img/net_1.png, id=99, 1027.84pt x 770.88pt>
 File: img/net_1.png Graphic file (type png)
 <use img/net_1.png>
 Package pdftex.def Info: img/net_1.png  used on input line 14.
@@ -303,28 +303,28 @@ Package pdftex.def Info: img/net_1.png  used on input line 14.
 
  <./img/net_0.png (PNG copy)> <./img/net_1.png (PNG copy)>]
 pdfTeX warning (ext1): too large image resolution ignored
-<img/net_2.png, id=69, 1027.84pt x 770.88pt>
+<img/net_2.png, id=109, 1027.84pt x 770.88pt>
 File: img/net_2.png Graphic file (type png)
 <use img/net_2.png>
 Package pdftex.def Info: img/net_2.png  used on input line 31.
 (pdftex.def)             Requested size: 175.49881pt x 131.62424pt.
 
 pdfTeX warning (ext1): too large image resolution ignored
-<img/net_3.png, id=70, 1027.84pt x 770.88pt>
+<img/net_3.png, id=110, 1027.84pt x 770.88pt>
 File: img/net_3.png Graphic file (type png)
 <use img/net_3.png>
 Package pdftex.def Info: img/net_3.png  used on input line 33.
 (pdftex.def)             Requested size: 175.49881pt x 131.62424pt.
 
 pdfTeX warning (ext1): too large image resolution ignored
-<img/net_4.png, id=71, 1027.84pt x 770.88pt>
+<img/net_4.png, id=111, 1027.84pt x 770.88pt>
 File: img/net_4.png Graphic file (type png)
 <use img/net_4.png>
 Package pdftex.def Info: img/net_4.png  used on input line 50.
 (pdftex.def)             Requested size: 175.49881pt x 131.62424pt.
 
 pdfTeX warning (ext1): too large image resolution ignored
-<img/net_6.png, id=72, 1027.84pt x 770.88pt>
+<img/net_6.png, id=112, 1027.84pt x 770.88pt>
 File: img/net_6.png Graphic file (type png)
 <use img/net_6.png>
 Package pdftex.def Info: img/net_6.png  used on input line 52.
@@ -333,64 +333,64 @@ Package pdftex.def Info: img/net_6.png  used on input line 52.
 \openout2 = `tex/03_statistics.aux'.
 
  (./tex/03_statistics.tex
-<img/net_0_degree_distribution.png, id=88, 433.62pt x 289.08pt>
+<img/net_0_degree_distribution.png, id=128, 433.62pt x 289.08pt>
 File: img/net_0_degree_distribution.png Graphic file (type png)
 <use img/net_0_degree_distribution.png>
-Package pdftex.def Info: img/net_0_degree_distribution.png  used on input line 23.
+Package pdftex.def Info: img/net_0_degree_distribution.png  used on input line 27.
 (pdftex.def)             Requested size: 175.49881pt x 117.00177pt.
-<img/net_1_degree_distribution.png, id=90, 433.62pt x 289.08pt>
+<img/net_1_degree_distribution.png, id=130, 433.62pt x 289.08pt>
 File: img/net_1_degree_distribution.png Graphic file (type png)
 <use img/net_1_degree_distribution.png>
-Package pdftex.def Info: img/net_1_degree_distribution.png  used on input line 25.
+Package pdftex.def Info: img/net_1_degree_distribution.png  used on input line 29.
 (pdftex.def)             Requested size: 175.49881pt x 117.00177pt.
-<img/net_2_degree_distribution.png, id=91, 433.62pt x 289.08pt>
+<img/net_2_degree_distribution.png, id=131, 433.62pt x 289.08pt>
 File: img/net_2_degree_distribution.png Graphic file (type png)
 <use img/net_2_degree_distribution.png>
-Package pdftex.def Info: img/net_2_degree_distribution.png  used on input line 27.
+Package pdftex.def Info: img/net_2_degree_distribution.png  used on input line 31.
 (pdftex.def)             Requested size: 175.49881pt x 117.00177pt.
-<img/net_3_degree_distribution.png, id=92, 433.62pt x 289.08pt>
+<img/net_3_degree_distribution.png, id=132, 433.62pt x 289.08pt>
 File: img/net_3_degree_distribution.png Graphic file (type png)
 <use img/net_3_degree_distribution.png>
-Package pdftex.def Info: img/net_3_degree_distribution.png  used on input line 29.
+Package pdftex.def Info: img/net_3_degree_distribution.png  used on input line 33.
 (pdftex.def)             Requested size: 175.49881pt x 117.00177pt.
-<img/net_4_degree_distribution.png, id=93, 433.62pt x 289.08pt>
+<img/net_4_degree_distribution.png, id=133, 433.62pt x 289.08pt>
 File: img/net_4_degree_distribution.png Graphic file (type png)
 <use img/net_4_degree_distribution.png>
-Package pdftex.def Info: img/net_4_degree_distribution.png  used on input line 31.
+Package pdftex.def Info: img/net_4_degree_distribution.png  used on input line 35.
 (pdftex.def)             Requested size: 175.49881pt x 117.00177pt.
-<img/net_6_degree_distribution.png, id=94, 433.62pt x 289.08pt>
+<img/net_6_degree_distribution.png, id=134, 433.62pt x 289.08pt>
 File: img/net_6_degree_distribution.png Graphic file (type png)
 <use img/net_6_degree_distribution.png>
-Package pdftex.def Info: img/net_6_degree_distribution.png  used on input line 33.
+Package pdftex.def Info: img/net_6_degree_distribution.png  used on input line 37.
 (pdftex.def)             Requested size: 175.49881pt x 117.00177pt.
  [6
 
 
 
-] [7 <./img/net_0_degree_distribution.png> <./img/net_1_degree_distribution.png> <./img/net_2_degree_distribution.png> <./img/net_3_degree_distribution.png> <./img/net_4_degree_distribution.png> <./img/net_6_degree_distribution.png>]
-Overfull \hbox (33.79626pt too wide) in paragraph at lines 64--91
+] [7 <./img/net_0_degree_distribution.png> <./img/net_1_degree_distribution.png> <./img/net_2_degree_distribution.png> <./img/net_3_degree_distribution.png> <./img/net_4_degree_distribution.png> <./img/net_6_degree_distribution.png>] [8]
+Overfull \hbox (33.79626pt too wide) in paragraph at lines 91--118
  [][] 
  []
 
-) [8]
+) [9] [10]
 No file Major_project_proposal.bbl.
 (./Major_project_proposal.aux (./tex/01_pre_processing.aux) (./tex/02_analyses_6_nets.aux) (./tex/03_statistics.aux))
 Package rerunfilecheck Info: File `Major_project_proposal.out' has not changed.
-(rerunfilecheck)             Checksum: 4171AA74A71A7089B2C3DF01C241EEB9;1316.
+(rerunfilecheck)             Checksum: 766B51234EAB2BD075F457753B5D6289;3256.
  ) 
 Here is how much of TeX's memory you used:
- 10473 strings out of 478353
- 172217 string characters out of 5854636
- 462937 words of memory out of 5000000
- 28411 multiletter control sequences out of 15000+600000
+ 10501 strings out of 478353
+ 172643 string characters out of 5854636
+ 460075 words of memory out of 5000000
+ 28424 multiletter control sequences out of 15000+600000
  413793 words of font info for 66 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  60i,11n,63p,1015b,450s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on Major_project_proposal.pdf (8 pages, 998292 bytes).
+{/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
+Output written on Major_project_proposal.pdf (10 pages, 1020157 bytes).
 PDF statistics:
- 193 PDF objects out of 1000 (max. 8388607)
- 141 compressed objects within 2 object streams
- 40 named destinations out of 1000 (max. 500000)
- 141 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 257 PDF objects out of 1000 (max. 8388607)
+ 199 compressed objects within 2 object streams
+ 55 named destinations out of 1000 (max. 500000)
+ 221 words of extra memory for PDF output out of 10000 (max. 10000000)
 

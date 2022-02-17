@@ -1,11 +1,14 @@
-\section{Statistics of 6 networks}
+\section{Metrics of 6 networks}
 In this section I will present some statistics about the 6 chosen networks. The results will be presented in tables. It is also noteworthy to reiterate that Gephi does not display nodes if their degree is 0.
 
-\textbf{Number of nodes.} The number of nodes of each graph will be the amount of people who have at least one edge connecting them to another person.
+\subsection{Number of nodes}
+The number of nodes of each graph will be the amount of people who have at least one edge connecting them to another person.
 
-\textbf{Number of edges.} The number of edges of each graph will be the amount of connections that exist between each person for each question.
+\subsection{Number of edges}
+The number of edges of each graph will be the amount of connections that exist between each person for each question.
 
-\textbf{Edge density.} Graph density tells us how connected nodes are between each other. For undirected graphs, this metric can be calculated as
+\subsection{Edge density}
+Graph density tells us how connected nodes are between each other. For undirected graphs, this metric can be calculated as
 \begin{equation}
     D_{undirected} = \frac{2|E|}{|N|(|N|-1)}
     \label{equation:dir_density}
@@ -17,7 +20,8 @@ and the density for directed graphs is defined as
 \end{equation}
 where $E$ is the number of edges and $V$ is the number of nodes in the graph.
 
-\textbf{Degree distribution.} The degree distribution of a graph allows us to grasp how deeply connected the nodes are. Figure \ref{fig:4} pictures the degree distributions for the 6 chosen networks.
+\subsection{Degree distribution}
+The degree distribution of a graph allows us to grasp how deeply connected the nodes are. Figure \ref{fig:4} pictures the degree distributions for the 6 chosen networks.
 \begin{figure}
     \centering
     \subfloat[\centering Network 1]{{\includegraphics[width=0.45\textwidth]{img/net_0_degree_distribution.png}}}
@@ -35,7 +39,8 @@ where $E$ is the number of edges and $V$ is the number of nodes in the graph.
     \label{fig:4}
 \end{figure}
 
-\textbf{Average clustering coefficient.} The average clustering coefficient for a graph helps determine how transitive a relationship is. The clustering coefficient is defined as
+\subsection{Average clustering coefficient}
+The average clustering coefficient for a graph helps determine how transitive a relationship is. The clustering coefficient is defined as
 \begin{equation}
     C_i = \frac{2e_i}{k_i(k_i-1)}
     \label{equation:clustering_coef}
@@ -44,20 +49,42 @@ where $e_i$ is the number of edges between the neighbors of node $i$.
 
 The average clustering coefficient of the graph is calculated as
 \begin{equation}
-    <C> = \frac{1}{N}\sum_{i}^{N}C_i
+    \left\langle C \right\rangle = \frac{1}{N}\sum_{i}^{N}C_i
     \label{equation:avg_clustering_coef}
 \end{equation}
 where $N$ is the number of nodes in the graph, and $C_i$ is the clustering coefficient of node $i$.
 
-\textbf{Number of nodes in strongly connected component (SCC).} The strongly connected component (SCC) metric can only be obtained from directed graphs. Since only the first network, then it is the only one that can provide this value. For networks 2 through 5, and 7, the values are from the connected components. Refer to table \ref{table:1} for the values.
+\subsection{Number of nodes in strongly connected component (SCC)}
+The strongly connected component (SCC) metric can only be obtained from directed graphs. Since only the first network, then it is the only one that can provide this value. For networks 2 through 5, and 7, the values are from the connected components. Refer to table \ref{table:1} for the values.
 
-\textbf{Number of nodes in weakly connected component (WCC).} The weakly connected component (WCC) metric can only be obtained from directed graphs. Since only the first network, then it is the only one that can provide this value. For networks 2 through 5, and 7, the values are from the connected components. Refer to table \ref{table:1} for the values.
+\subsection{Number of nodes in weakly connected component (WCC)}
+The weakly connected component (WCC) metric can only be obtained from directed graphs. Since only the first network, then it is the only one that can provide this value. For networks 2 through 5, and 7, the values are from the connected components. Refer to table \ref{table:1} for the values.
 
-\textbf{Average path length in SCC.}
+\subsection{Average path length in SCC}
+The average path length metric indicates how far apart two nodes are from each other in the connected graph. In other words, how many jumps, in average, it takes to reach other nodes. For a directed graph, it is calculated as
+\begin{equation}
+    \left\langle d \right\rangle \equiv \frac{1}{2L_{max}}\sum_{i,j \neq i}d_{ij}
+    \label{equation:dir_avg_path_len}
+\end{equation}
 
-\textbf{Diameter of SCC.}
+For undirected graphs, it is calculated as
+\begin{equation}
+    \left\langle d \right\rangle \equiv \frac{1}{L_{max}}\sum_{i,j >  i}d_{ij}
+    \label{equation:undir_avg_path_len}
+\end{equation}
 
-\textbf{Community detection.}
+For networks 2 through 5, and 7, I calculated the average path length in the connected component because these networks are undirected graphs, thus not being possible to determine strongly connected components.
+
+\subsection{Diameter of SCC}
+This metric represents the maximum shortest distance between two nodes in a connected graph. It can be represented as
+\begin{equation}
+    diameter \equiv \max_{ij}d_{ij}
+    \label{equation:diameter}
+\end{equation}
+
+For the first network, I collected the diameter of the strongly connected component. However, since all other networks are undirected graphs, I collected the diameter of the largest connected component.
+
+\subsection{Community detection}
 
 \begin{table}
     \centering
