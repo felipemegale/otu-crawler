@@ -1,6 +1,39 @@
 \section{Metrics of 6 networks}
 In this section I will present some statistics about the 6 chosen networks. The results will be presented in tables. It is also noteworthy to reiterate that Gephi does not display nodes if their degree is 0.
 
+\begin{table}
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|c|c|}
+        \hline
+        \textbf{Metric} & \textbf{Net. 1} & \textbf{Net. 2} & \textbf{Net. 3} & \textbf{Net. 4} & \textbf{Net. 5} & \textbf{Net. 7} \\
+        \hline
+        Num. Nodes & 59 & 55 & 52 & 41 & 29 & 59 \\
+        \hline
+        Num. Edges & 427 & 124 & 80 & 54 & 34 & 216 \\
+        \hline
+        Density & 0.125 & 0.084 & 0.060 & 0.066 & 0.084 & 0.126 \\
+        \hline
+        Avg. Clust. Coef. & 0.375 & 0.412 & 0.482 & 0.583 & 0.620 & 0.542 \\
+        \hline
+        Num. Nodes SCC & 49 & - & - & - & - & - \\
+        \hline
+        Num. Nodes WCC & 58 & - & - & - & - & - \\
+        \hline
+        Num. Nodes CC & - & 52 & 42 & 20 & 10 & 59 \\
+        \hline
+        Avg. Path Len. SCC & 2.599 & - & - & - & - & - \\
+        \hline
+        Avg. Path Len. CC & - & 3.143 & 4.234 & 2.857 & 1.711 & 2.654 \\
+        \hline
+        Diameter of SCC & 7 & - & - & - & - & - \\
+        \hline
+        Diameter of CC & - & 7 & 11 & 6 & 4 & 6 \\
+        \hline
+    \end{tabular}
+    \caption{Network statistics}
+    \label{table:1}
+\end{table}
+
 \subsection{Number of nodes}
 The number of nodes of each graph will be the amount of people who have at least one edge connecting them to another person.
 
@@ -85,36 +118,23 @@ This metric represents the maximum shortest distance between two nodes in a conn
 For the first network, I collected the diameter of the strongly connected component. However, since all other networks are undirected graphs, I collected the diameter of the largest connected component.
 
 \subsection{Community detection}
-
-\begin{table}
+To detect communities in each of the chosen networks, I ran the Girvan--Newman algorithm, implemented in NetworkX. Figure \ref{fig:5} illustrates the communities in each network. The communities the algorithm found make sense, given that it ran by removing the edges with highest betweenness, separating the communities the edge held together. Also, by comparing with figures \ref{fig:1}, \ref{fig:2}, and \ref{fig:3}, we can see that the nodes with most connections between each other form a community the algorithm was able to find.
+\begin{figure}[h!]
     \centering
-    \begin{tabular}{|c|c|c|c|c|c|c|c|}
-        \hline
-        \textbf{Metric} & \textbf{Net. 1} & \textbf{Net. 2} & \textbf{Net. 3} & \textbf{Net. 4} & \textbf{Net. 5} & \textbf{Net. 7} \\
-        \hline
-        Num. Nodes & 59 & 55 & 52 & 41 & 29 & 59 \\
-        \hline
-        Num. Edges & 427 & 124 & 80 & 54 & 34 & 216 \\
-        \hline
-        Density & 0.125 & 0.084 & 0.060 & 0.066 & 0.084 & 0.126 \\
-        \hline
-        Avg. Clust. Coef. & 0.375 & 0.412 & 0.482 & 0.583 & 0.620 & 0.542 \\
-        \hline
-        Num. Nodes SCC & 49 & - & - & - & - & - \\
-        \hline
-        Num. Nodes WCC & 58 & - & - & - & - & - \\
-        \hline
-        Num. Nodes CC & - & 52 & 42 & 20 & 10 & 59 \\
-        \hline
-        Avg. Path Len. SCC & 2.599 & - & - & - & - & - \\
-        \hline
-        Avg. Path Len. CC & - & 3.143 & 4.234 & 2.857 & 1.711 & 2.654 \\
-        \hline
-        Diameter of SCC & 7 & - & - & - & - & - \\
-        \hline
-        Diameter of CC & - & 7 & 11 & 6 & 4 & 6 \\
-        \hline
-    \end{tabular}
-    \caption{Network statistics}
-    \label{table:1}
-\end{table}
+    \subfloat[\centering Network 1]{{\includegraphics[width=0.45\textwidth]{img/net_0_communities.png}}}
+    \qquad
+    \subfloat[\centering Network 2]{{\includegraphics[width=0.45\textwidth]{img/net_1_communities.png}}}
+    \qquad
+    \subfloat[\centering Network 3]{{\includegraphics[width=0.45\textwidth]{img/net_2_communities.png}}}
+    \qquad
+    \subfloat[\centering Network 4]{{\includegraphics[width=0.45\textwidth]{img/net_3_communities.png}}}
+    \qquad
+    \subfloat[\centering Network 5]{{\includegraphics[width=0.45\textwidth]{img/net_4_communities.png}}}
+    \qquad
+    \subfloat[\centering Network 7]{{\includegraphics[width=0.45\textwidth]{img/net_6_communities.png}}}
+    \caption{Detected Communities}
+    \label{fig:5}
+\end{figure}
+
+\subsection{Centrality Measures}
+Centrality tries to determine which node is the most central. The four centrality measures will be used to determine which node is the most important in each network. The measures are in-degree, out-degree, betweenness, and closeness. They will be explained as they are used.
