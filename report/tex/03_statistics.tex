@@ -1,19 +1,19 @@
 \section{Metrics of 6 networks}
-In this section I will present some statistics about the 6 chosen networks. The results will be presented in tables. It is also noteworthy to reiterate that Gephi does not display nodes if their degree is 0.
+In this section I will present some statistics about the 6 chosen networks. The results will be presented in tables. All metrics and plots were calculated and generated using the Python package NetworkX.
 
 \begin{table}
     \centering
-    \begin{tabular}{|c|c|c|c|c|c|c|c|}
+    \begin{tabular}{|p{0.19\linewidth}|c|c|c|c|c|c|c|}
         \hline
         \textbf{Metric} & \textbf{Net. 1} & \textbf{Net. 2} & \textbf{Net. 3} & \textbf{Net. 4} & \textbf{Net. 5} & \textbf{Net. 7} \\
         \hline
-        Num. Nodes & 59 & 55 & 52 & 41 & 29 & 59 \\
+        Num. Nodes & 60 & 60 & 59 & 60 & 59 & 60 \\
         \hline
-        Num. Edges & 427 & 124 & 80 & 54 & 34 & 216 \\
+        Num. Edges & 426 & 120 & 73 & 48 & 30 & 214 \\
         \hline
-        Density & 0.125 & 0.084 & 0.060 & 0.066 & 0.084 & 0.126 \\
+        Density & 0.120 & 0.067 & 0.042 & 0.027 & 0.017 & 0.120 \\
         \hline
-        Avg. Clust. Coef. & 0.375 & 0.412 & 0.482 & 0.583 & 0.620 & 0.542 \\
+        Avg. Clust. Coef. & 0.394 & 0.304 & 0.296 & 0.241 & 0.168 & 0.488 \\
         \hline
         Num. Nodes SCC & 49 & - & - & - & - & - \\
         \hline
@@ -35,13 +35,13 @@ In this section I will present some statistics about the 6 chosen networks. The 
 \end{table}
 
 \subsection{Number of nodes}
-The number of nodes of each graph will be the amount of people who have at least one edge connecting them to another person.
+The number of nodes of each graph is the amount of people who have participated in the survey. Whether they are connected to someone else, or not, they will be represented as nodes.
 
 \subsection{Number of edges}
 The number of edges of each graph will be the amount of connections that exist between each person for each question.
 
 \subsection{Edge density}
-Graph density tells us how connected nodes are between each other. For undirected graphs, this metric can be calculated as
+Graph density tells us how connected nodes are between each other. If the density value is high, we say the graph is connected, if the density value is low, we say it is sparse. For undirected graphs, this metric can be calculated as
 \begin{equation}
     D_{undirected} = \frac{2|E|}{|N|(|N|-1)}
     \label{equation:dir_density}
@@ -54,7 +54,7 @@ and the density for directed graphs is defined as
 where $E$ is the number of edges and $V$ is the number of nodes in the graph.
 
 \subsection{Degree distribution}
-The degree distribution of a graph allows us to grasp how deeply connected the nodes are. Figure \ref{fig:4} pictures the degree distributions for the 6 chosen networks.
+The degree distribution can superficially tell us what are the preferences for people when connecting to each other. Figure \ref{fig:4} plots the degree distributions for the 6 chosen networks.
 \begin{figure}
     \centering
     \subfloat[\centering Network 1]{{\includegraphics[width=0.45\textwidth]{img/net_0_degree_distribution.png}}}
@@ -73,7 +73,7 @@ The degree distribution of a graph allows us to grasp how deeply connected the n
 \end{figure}
 
 \subsection{Average clustering coefficient}
-The average clustering coefficient for a graph helps determine how transitive a relationship is. The clustering coefficient is defined as
+The average clustering coefficient for a graph helps determine how transitive a relationship is. For example, if persons A and B are friends, and persons A and C are friends, there is a high chance that persons B and C are also friends. The clustering coefficient is defined as
 \begin{equation}
     C_i = \frac{2e_i}{k_i(k_i-1)}
     \label{equation:clustering_coef}
@@ -88,10 +88,10 @@ The average clustering coefficient of the graph is calculated as
 where $N$ is the number of nodes in the graph, and $C_i$ is the clustering coefficient of node $i$.
 
 \subsection{Number of nodes in strongly connected component (SCC)}
-The strongly connected component (SCC) metric can only be obtained from directed graphs. Since only the first network, then it is the only one that can provide this value. For networks 2 through 5, and 7, the values are from the connected components. Refer to table \ref{table:1} for the values.
+The strongly connected component (SCC) metric can only be obtained from directed graphs. Since only the first network is directed, it is the only one that can provide this value. For networks 2 through 5, and 7, the values are from the connected components. Refer to table \ref{table:1} for the values.
 
 \subsection{Number of nodes in weakly connected component (WCC)}
-The weakly connected component (WCC) metric can only be obtained from directed graphs. Since only the first network, then it is the only one that can provide this value. For networks 2 through 5, and 7, the values are from the connected components. Refer to table \ref{table:1} for the values.
+The weakly connected component (WCC) metric can only be obtained from directed graphs. Since only the first network is directed, it is the only one that can provide this value. For networks 2 through 5, and 7, the values are from the connected components. Refer to table \ref{table:1} for the values.
 
 \subsection{Average path length in SCC}
 The average path length metric indicates how far apart two nodes are from each other in the connected graph. In other words, how many jumps, in average, it takes to reach other nodes. For a directed graph, it is calculated as
@@ -99,8 +99,7 @@ The average path length metric indicates how far apart two nodes are from each o
     \left\langle d \right\rangle \equiv \frac{1}{2L_{max}}\sum_{i,j \neq i}d_{ij}
     \label{equation:dir_avg_path_len}
 \end{equation}
-
-For undirected graphs, it is calculated as
+whereas for undirected graphs, it is calculated as
 \begin{equation}
     \left\langle d \right\rangle \equiv \frac{1}{L_{max}}\sum_{i,j >  i}d_{ij}
     \label{equation:undir_avg_path_len}
@@ -109,7 +108,7 @@ For undirected graphs, it is calculated as
 For networks 2 through 5, and 7, I calculated the average path length in the connected component because these networks are undirected graphs, thus not being possible to determine strongly connected components.
 
 \subsection{Diameter of SCC}
-This metric represents the maximum shortest distance between two nodes in a connected graph. It can be represented as
+This metric represents the maximum shortest distance between two nodes in a connected graph. It is be represented as
 \begin{equation}
     diameter \equiv \max_{ij}d_{ij}
     \label{equation:diameter}
