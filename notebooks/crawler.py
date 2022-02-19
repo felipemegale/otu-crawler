@@ -126,35 +126,37 @@ def generate_children(url):
         return []
 
 # bfs driver function
-# add by populating queue with first node
-# while queue is not empty,
-#     pop URL from queue,
-#     if URL hasnt been seen before
-#     generate its children
-#     add children to queue to be visited
-#     add children to adjacency list
-#     when queue is empty, all nodes have been visited
-#     write adjacency list to file
-#     quit BFS
 def bfs(url):
     print(get_now(), "Started BFS...")
+    # 1) start by populating the queue with the initial node
     queue.append(url)
 
+    # 2) while the queue isnt empty
     while len(queue) != 0:
+        # 3) pop the last added of the deque
         u = queue.pop()
+
+        # 4) get current nodes of the graph
         graph_keys = list(graph.keys())
 
+        # 5) if the popped item is not a node in the graph
         if u not in graph_keys:
             print(get_now(), f'Generating children of {u}...')
+            # 6) expand all nodes from current node
             children = generate_children(u)
             print(get_now(), 'Generated', len(children), 'children!')
 
+            # 7) append to queue all chosen links in current web page
             for child in children:
                 queue.append(child)
+            
+            # 8) add current node's adjacency list
             graph[u]=children
+        # 9) if web page has been visited before, skip
         else:
             print(get_now(), f'Skipped {u} !')
 
+    # 10) after traversing all web pages, dump graph to a json file for posterior processing and analytics
     print(get_now(), 'Writing adjacency list to file...')
     with open('bfs_adj_list.json', 'w') as f:
         f.write(json.dumps(graph))
@@ -163,9 +165,11 @@ def bfs(url):
 ''' END FUNCTIONS '''
 
 
+# Python's main function
 ''' BEGIN MAIN '''
 if __name__ == '__main__':
     print(get_now(), "Starting BFS...")
+    # start BFS from initial URL
     bfs(INITIAL_URL)
     print(get_now(), "Program finished!")
 ''' END MAIN '''
