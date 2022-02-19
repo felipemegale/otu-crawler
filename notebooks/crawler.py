@@ -72,7 +72,8 @@ def uoit_to_ontariotechu(url):
 # 7) filter off URLs that point to files
 # 8) remove trailing / , and index.php, and index.html, and //
 # 9) change all uoit domains to ontariotechu
-def generate_sons(url):
+# 10) return children of current node
+def generate_children(url):
     sleep(1.0)
     r = requests.get(url)
     html_content = r.content
@@ -83,7 +84,7 @@ def generate_sons(url):
     university_hrefs = list(filter(detect_bad_file_extensions, university_hrefs))
     university_hrefs = list(map(rstrip_url, university_hrefs))
     university_hrefs = list(map(uoit_to_ontariotechu, university_hrefs))
-    print(university_hrefs)
+    return university_hrefs
 
 def bfs(url):
     queue.append(url)
@@ -92,9 +93,9 @@ def bfs(url):
         u = queue.pop()
 
         if (u not in graph.keys()):
-            sons = generate_sons(u)
-            for son in sons:
-                queue.pop(son)
+            children = generate_children(u)
+            for child in children:
+                queue.append(child)
 ''' END FUNCTIONS '''
 
 
