@@ -85,7 +85,7 @@ def uoit_to_ontariotechu(url):
 # 9) change all uoit domains to ontariotechu
 # 10) return children of current node
 def generate_children(url):
-    sleep(1.5)
+    sleep(2)
     print(get_now(), "GET HTTP request", url)
     r = requests.get(url)
     html_content = r.content
