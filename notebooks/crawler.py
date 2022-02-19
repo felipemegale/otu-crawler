@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 import requests
 
 # import URL utility library
-from urllib.parse import urlsplit, quote
+from urllib.parse import urlsplit
 
 # import another URL utility library
 import tldextract
@@ -38,6 +38,7 @@ queue = deque() # this will be the queue of unvisited URLs
 def get_now():
     return datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
+# lambda function to disregard all those hrefs that are not http or https pages
 def filter_non_http(url):
     splitted_url = urlsplit(url)
     scheme = splitted_url.scheme
@@ -55,9 +56,7 @@ def detect_bad_file_extensions(url):
             return False
     return True
 
-# lambda function to return URL withouth index.php in it
-# since the version without it redirects to the same page
-# this function also strips trailing /
+# lambda function to 
 def rstrip_url(url):
     splitted_url = urlsplit(url)
     scheme = splitted_url.scheme
@@ -80,36 +79,47 @@ def uoit_to_ontariotechu(url):
     new_url = f'{scheme}://{netloc}{path}'.rstrip('/')
     return new_url
 
-# step by step:
-# 1) sleep for 1 second to avoid ip blocking or slow down
-# 2) perform HTTP request to given URL
-# 3) parse HTML response to Python object
-# 4) get all anchor tags
-# 5) get all hrefs from all anchors
-# 6) filter off hrefs that are not in the UOIT or OTU domains
-# 7) filter off URLs that point to files
-# 8) remove trailing / , and index.php, and index.html, and //
-# 9) change all uoit domains to ontariotechu
-# 10) return children of current node
+# key function for BFS. This expands the current node (URL)
 def generate_children(url):
     try:
+        # 1) sleep for 2 seconds to avoid ip blocking or slow down
         sleep(2)
+        
+        # 2) perform HTTP request to given URL
         print(get_now(), "GET HTTP request", url)
         r = requests.get(url)
         html_content = r.content
+
+        # 3) parse HTML response to Python object
         soup = BeautifulSoup(html_content, "html.parser")
+
+        # 4) get all anchor tags
         all_anchors = soup.find_all("a")
+        
+        # 5) get all hrefs from all anchors
         all_hrefs = []
         for anchor in all_anchors:
             try:
                 all_hrefs.append(anchor['href'])
             except:
                 pass
+
+        # 6) filter off hrefs that are not in the UOIT or OTU domains
         university_hrefs = list(filter(lambda d: tldextract.extract(d).domain in university_domains, all_hrefs))
+
+        # 7) filter off all URLs that are not http or https (e.g. mailto)
         university_hrefs = list(filter(filter_non_http, university_hrefs))
+
+        # 8) filter off URLs that point to files
         university_hrefs = list(filter(detect_bad_file_extensions, university_hrefs))
+
+        # 9) remove index.php or index.html, trailing slashes and double slashes
         university_hrefs = list(map(rstrip_url, university_hrefs))
+
+        # 10) convert uoit domains to ontariotechu since uoit redirects to ontariotech
         university_hrefs = list(map(uoit_to_ontariotechu, university_hrefs))
+
+        # 11) return all found children
         print(get_now(), 'Returning children...')
         return list(set(university_hrefs))
     except:
@@ -118,8 +128,8 @@ def generate_children(url):
 # bfs driver function
 # add by populating queue with first node
 # while queue is not empty,
-#     pop element from queue,
-#     if element hasnt been seen before
+#     pop URL from queue,
+#     if URL hasnt been seen before
 #     generate its children
 #     add children to queue to be visited
 #     add children to adjacency list
