@@ -15,8 +15,14 @@ import tldextract
 #     or intentional delays
 from time import sleep
 
+# import datetime to improve logging
+from datetime import datetime
+
 # python native queue/stack data structure
 from collections import deque
+
+# native python json module, allows to serialize/deserialize json
+import json
 '''END IMPORTS'''
 
 '''GLOBAL VARIABLES'''
@@ -28,6 +34,10 @@ queue = deque() # this will be the queue of unvisited URLs
 '''END GLOBALS VARIABLES'''
 
 ''' BEGIN FUNCTIONS '''
+# helper function to get formatted current datetime
+def get_now():
+    return datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
 # lambda function to filter off URLs with bad file extensions
 def detect_bad_file_extensions(url):
     splitted_url = urlsplit(url)
@@ -54,6 +64,7 @@ def rstrip_url(url):
     new_url = f'{scheme}://{netloc}{path}'.rstrip('/')
     return new_url
 
+# lambda function to convert uoit domain to ontariotechu
 def uoit_to_ontariotechu(url):
     splitted_url = urlsplit(url)
     scheme = splitted_url.scheme
@@ -74,7 +85,8 @@ def uoit_to_ontariotechu(url):
 # 9) change all uoit domains to ontariotechu
 # 10) return children of current node
 def generate_children(url):
-    sleep(1.0)
+    sleep(1.5)
+    print(get_now(), "GET HTTP request", url)
     r = requests.get(url)
     html_content = r.content
     soup = BeautifulSoup(html_content, "html.parser")
@@ -84,22 +96,48 @@ def generate_children(url):
     university_hrefs = list(filter(detect_bad_file_extensions, university_hrefs))
     university_hrefs = list(map(rstrip_url, university_hrefs))
     university_hrefs = list(map(uoit_to_ontariotechu, university_hrefs))
-    return university_hrefs
+    print(get_now(), 'Returning children...')
+    return list(set(university_hrefs))
 
+# bfs driver function
+# add by populating queue with first node
+# while queue is not empty,
+#     pop element from queue,
+#     if element hasnt been seen before
+#     generate its children
+#     add children to queue to be visited
+#     add children to adjacency list
+#     when queue is empty, all nodes have been visited
+#     write adjacency list to file
+#     quit BFS
 def bfs(url):
+    print(get_now(), "Started BFS...")
     queue.append(url)
 
     while len(queue) != 0:
         u = queue.pop()
+        print(get_now(), f'Analyzing {u}...')
+        graph_keys = list(graph.keys())
 
-        if (u not in graph.keys()):
+        if u not in graph_keys:
+            print(get_now(), 'Generating children...')
             children = generate_children(u)
+            print(get_now(), 'Generated', len(children), 'children!')
+
             for child in children:
                 queue.append(child)
+            graph[u]=children
+    print(get_now(), 'Writing adjacency list to file...')
+    with open('bfs_adj_list.json', 'w') as f:
+        f.write(json.dumps(graph))
+    print(get_now(), 'Wrote adjacency list to file!')
+
 ''' END FUNCTIONS '''
 
 
 ''' BEGIN MAIN '''
 if __name__ == '__main__':
+    print(get_now(), "Starting BFS...")
     bfs(INITIAL_URL)
+    print(get_now(), "Program finished!")
 ''' END MAIN '''
