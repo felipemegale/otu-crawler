@@ -26,3 +26,4 @@
 \contentsline {subsubsection}{\numberline {3.11.5}Network 5}{13}{subsubsection.3.11.5}%
 \contentsline {subsubsection}{\numberline {3.11.6}Network 7}{14}{subsubsection.3.11.6}%
 \contentsline {section}{\numberline {4}Insights}{16}{section.4}%
+\contentsline {section}{\numberline {5}Information Networks}{17}{section.5}%
