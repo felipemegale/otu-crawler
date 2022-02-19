@@ -91,7 +91,12 @@ def generate_children(url):
     html_content = r.content
     soup = BeautifulSoup(html_content, "html.parser")
     all_anchors = soup.find_all("a")
-    all_hrefs = [anchor['href'] for anchor in all_anchors]
+    all_hrefs = []
+    for anchor in all_anchors:
+        try:
+            all_hrefs.append(anchor['href'])
+        except:
+            pass
     university_hrefs = list(filter(lambda d: tldextract.extract(d).domain in university_domains, all_hrefs))
     university_hrefs = list(filter(detect_bad_file_extensions, university_hrefs))
     university_hrefs = list(map(rstrip_url, university_hrefs))
