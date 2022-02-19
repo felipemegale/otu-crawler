@@ -129,7 +129,7 @@ def bfs(url):
 
     while len(queue) != 0:
         u = queue.pop()
-        print(get_now(), f'Analyzing {u}...')
+        print(get_now(), f'Analyzing {u} ...')
         graph_keys = list(graph.keys())
 
         if u not in graph_keys:
@@ -140,6 +140,8 @@ def bfs(url):
             for child in children:
                 queue.append(child)
             graph[u]=children
+        else:
+            print(get_now(), f'Skipped {u} !')
     print(get_now(), 'Writing adjacency list to file...')
     with open('bfs_adj_list.json', 'w') as f:
         f.write(json.dumps(graph))
