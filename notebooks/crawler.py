@@ -38,6 +38,13 @@ queue = deque() # this will be the queue of unvisited URLs
 def get_now():
     return datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
+def filter_non_http(url):
+    splitted_url = urlsplit(url)
+    scheme = splitted_url.scheme
+    if scheme not in ['http', 'https']:
+        return False
+    return True
+
 # lambda function to filter off URLs with bad file extensions
 def detect_bad_file_extensions(url):
     splitted_url = urlsplit(url)
@@ -98,6 +105,7 @@ def generate_children(url):
         except:
             pass
     university_hrefs = list(filter(lambda d: tldextract.extract(d).domain in university_domains, all_hrefs))
+    university_hrefs = list(filter(filter_non_http, university_hrefs))
     university_hrefs = list(filter(detect_bad_file_extensions, university_hrefs))
     university_hrefs = list(map(rstrip_url, university_hrefs))
     university_hrefs = list(map(uoit_to_ontariotechu, university_hrefs))
