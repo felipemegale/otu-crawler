@@ -92,25 +92,28 @@ def uoit_to_ontariotechu(url):
 # 9) change all uoit domains to ontariotechu
 # 10) return children of current node
 def generate_children(url):
-    sleep(2)
-    print(get_now(), "GET HTTP request", url)
-    r = requests.get(url)
-    html_content = r.content
-    soup = BeautifulSoup(html_content, "html.parser")
-    all_anchors = soup.find_all("a")
-    all_hrefs = []
-    for anchor in all_anchors:
-        try:
-            all_hrefs.append(anchor['href'])
-        except:
-            pass
-    university_hrefs = list(filter(lambda d: tldextract.extract(d).domain in university_domains, all_hrefs))
-    university_hrefs = list(filter(filter_non_http, university_hrefs))
-    university_hrefs = list(filter(detect_bad_file_extensions, university_hrefs))
-    university_hrefs = list(map(rstrip_url, university_hrefs))
-    university_hrefs = list(map(uoit_to_ontariotechu, university_hrefs))
-    print(get_now(), 'Returning children...')
-    return list(set(university_hrefs))
+    try:
+        sleep(2)
+        print(get_now(), "GET HTTP request", url)
+        r = requests.get(url)
+        html_content = r.content
+        soup = BeautifulSoup(html_content, "html.parser")
+        all_anchors = soup.find_all("a")
+        all_hrefs = []
+        for anchor in all_anchors:
+            try:
+                all_hrefs.append(anchor['href'])
+            except:
+                pass
+        university_hrefs = list(filter(lambda d: tldextract.extract(d).domain in university_domains, all_hrefs))
+        university_hrefs = list(filter(filter_non_http, university_hrefs))
+        university_hrefs = list(filter(detect_bad_file_extensions, university_hrefs))
+        university_hrefs = list(map(rstrip_url, university_hrefs))
+        university_hrefs = list(map(uoit_to_ontariotechu, university_hrefs))
+        print(get_now(), 'Returning children...')
+        return list(set(university_hrefs))
+    except:
+        return []
 
 # bfs driver function
 # add by populating queue with first node
@@ -129,11 +132,10 @@ def bfs(url):
 
     while len(queue) != 0:
         u = queue.pop()
-        print(get_now(), f'Analyzing {u} ...')
         graph_keys = list(graph.keys())
 
         if u not in graph_keys:
-            print(get_now(), 'Generating children...')
+            print(get_now(), f'Generating children of {u}...')
             children = generate_children(u)
             print(get_now(), 'Generated', len(children), 'children!')
 
@@ -142,6 +144,7 @@ def bfs(url):
             graph[u]=children
         else:
             print(get_now(), f'Skipped {u} !')
+
     print(get_now(), 'Writing adjacency list to file...')
     with open('bfs_adj_list.json', 'w') as f:
         f.write(json.dumps(graph))
