@@ -134,7 +134,7 @@ def bfs(url):
     # 2) while the queue isnt empty
     while len(queue) != 0:
         # 3) pop the last added of the deque
-        u = queue.pop()
+        u = queue.popleft()
 
         # 4) get current nodes of the graph
         graph_keys = list(graph.keys())
