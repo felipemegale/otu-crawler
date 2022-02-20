@@ -168,8 +168,12 @@ def bfs(url):
 # Python's main function
 ''' BEGIN MAIN '''
 if __name__ == '__main__':
-    print(get_now(), "Starting BFS...")
+    program_begin = get_now()
+    print(program_begin, "Starting BFS...")
     # start BFS from initial URL
     bfs(INITIAL_URL)
-    print(get_now(), "Program finished!")
+    program_end = get_now()
+    print(program_end, "Program finished!")
+    delta = program_end - program_begin
+    print("Program took", delta, "to complete!")
 ''' END MAIN '''
