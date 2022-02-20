@@ -18,7 +18,7 @@ from time import sleep
 # import datetime to improve logging
 from datetime import datetime
 
-# python native queue/stack data structure
+# python native queue data structure
 from collections import deque
 
 # native python json module, allows to serialize/deserialize json
@@ -133,7 +133,7 @@ def bfs(url):
 
     # 2) while the queue isnt empty
     while len(queue) != 0:
-        # 3) pop the last added of the deque
+        # 3) dequeue the first item in line
         u = queue.popleft()
 
         # 4) get current nodes of the graph
