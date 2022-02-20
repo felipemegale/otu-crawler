@@ -83,7 +83,7 @@ def uoit_to_ontariotechu(url):
 def generate_children(url):
     try:
         # 1) sleep for 2 seconds to avoid ip blocking or slow down
-        sleep(2)
+        sleep(1)
         
         # 2) perform HTTP request to given URL
         print(get_now(), "GET HTTP request", url)
@@ -155,6 +155,8 @@ def bfs(url):
         # 9) if web page has been visited before, skip
         else:
             print(get_now(), f'Skipped {u} !')
+        
+        print(get_now(), "Queue length", len(queue))
 
     # 10) after traversing all web pages, dump graph to a json file for posterior processing and analytics
     print(get_now(), 'Writing adjacency list to file...')
@@ -168,11 +170,11 @@ def bfs(url):
 # Python's main function
 ''' BEGIN MAIN '''
 if __name__ == '__main__':
-    program_begin = get_now()
+    program_begin = datetime.now()
     print(program_begin, "Starting BFS...")
     # start BFS from initial URL
     bfs(INITIAL_URL)
-    program_end = get_now()
+    program_end = datetime.now()
     print(program_end, "Program finished!")
     delta = program_end - program_begin
     print("Program took", delta, "to complete!")
