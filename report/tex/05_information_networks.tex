@@ -95,8 +95,8 @@ def uoit_to_ontariotechu(url):
 # key function for BFS. This expands the current node (URL)
 def generate_children(url):
     try:
-        # 1) sleep for 2 seconds to avoid ip blocking or slow down
-        sleep(2)
+        # 1) sleep for 1 second to avoid ip blocking or slow down
+        sleep(1)
         
         # 2) perform HTTP request to given URL
         print(get_now(), "GET HTTP request", url)
@@ -146,7 +146,7 @@ def bfs(url):
 
     # 2) while the queue isnt empty
     while len(queue) != 0:
-        # 3) dequeue a node
+        # 3) dequeue a node in a "first in first out" strategy
         u = queue.popleft()
 
         # 4) get current nodes of the graph
@@ -181,11 +181,11 @@ def bfs(url):
 # Python's main function
 ''' BEGIN MAIN '''
 if __name__ == '__main__':
-    program_begin = get_now()
+    program_begin = datetime.now()
     print(program_begin, "Starting BFS...")
     # start BFS from initial URL
     bfs(INITIAL_URL)
-    program_end = get_now()
+    program_end = datetime.now()
     print(program_end, "Program finished!")
     delta = program_end - program_begin
     print("Program took", delta, "to complete!")
@@ -232,7 +232,48 @@ The next lambda function is called \textit{uoit\_ontariotechu}. The sole purpose
 
 Next, the core of the BFS algorithm, is the \textit{generate\_children} function. It works by trying to perform an HTTP GET request. When the request fails by any reason, I say that no children were found, since no web page was collected. If the request does not fail, I collect the content (namely, the HTML page as a string), parse it with \textit{BeautifulSoup}, query all anchor HTML tags, then try to collect every href attribute from the anchors. Next, I process all hrefs using a series of mappings and filters. I first filter off those URLs that are not in the UOIT/Ontario Tech University domain. Then the remaining URLs are filtered to remove every scheme that is not HTTP not HTTPS. The remaining URLs are again filtered to remove those that host files. Next, I map the URLs to remove trailing slashes and index pages. Finally, the remaining set of URLs is mapped again, but this time to change all UOIT domains into Ontario Tech University domains. After this series of mappings and filters, the remaining URLs are put into a set, which in Python removes duplicates from any list, and returned. This finishes the execution of the \textit{generate\_children} function.
 
-Lastly, the \textit{bfs} function is the actual implementation of the Breadth First Search algorithm. It starts by pushing to the queue the URL that was passed as a parameter. Then, until the queue is not empty, it dequeues a node that has not yet been visited and gets the current list of nodes in the graph. If the dequeued node is not in the list of nodes, expand the graph by generating the current node's children. Then, for each child of the current node, add it to the queue then add all children as the adjacency list of the current node in the graph. if the dequeued node is in the list of nodes in the graph, skip it to avoid performing unnecessary HTTP requests. When the queue is empty, the function dumps the assembled graph to a JSON file for persistent storage and avoid running the crawler every time the graph is needed.
+Lastly, the \textit{bfs} function is the actual implementation of the Breadth First Search algorithm. It starts by pushing to the queue the URL that was passed as a parameter. Then, until the queue is not empty, it dequeues a node that has not been visited yet and gets the current list of nodes in the graph. If the dequeued node is not in the list of nodes, expand the graph by generating the current node's children. Then, for each child of the current node, add it to the queue then add all children as the adjacency list of the current node in the graph. if the dequeued node is in the list of nodes in the graph, skip it to avoid performing unnecessary HTTP requests. When the queue is empty, the function dumps the assembled graph to a JSON file for persistent storage and avoid running the crawler every time the graph is needed.
 
 \subsubsection{Main}
 The main function in Python is used to call the \textit{bfs} function. It passes the \textit{INITIAL\_URL} as parameter. This function is the starting point of a Python program. It also calculates how long it took for the crawler to finish traversing all web pages in the Ontario Tech University's domain.
+
+\subsection{Analyses}
+After dumping the graph to a JSON file, the contents were read as a string and converted back to a dictionary. Using NetworkX, this dictionary was then used to instantiate a directed graph. All metrics were extracted using NetworkX.
+
+\subsubsection{Directed or undirected?} The network formed by the web pages within the University's domain is a directed graph. This choice is due to the fact that even though web page A has a hyperlink to web page B, there is no guarantee that web page B will have a hyperlink to web page A. Also, when traversing a graph in a search, it is not interesting to be able to go back to the previous node. This risks the search never finding a solution.
+
+\subsubsection{Weighted or unweighted?} This graph was modelled to have unweighted edges. The reason for this is that the objective was to only traverse the web pages within the University's domain. Therefore, the main interest was to know whether or not one web page has a hyperlink to another. However, even if it is desired to find the most referenced node, one can accomplish this by querying the graph for the node with the greatest in-degree.
+
+\subsubsection{Metrics}
+\textbf{Number of nodes.} The total number of nodes, that is, unique web pages within the University's domain is \textbf{2916}.
+
+\textbf{Number of edges.} The total number of edges, that is, how many hyperlinks exist within the University's domain is \textbf{109213}.
+
+\textbf{Edge density.} Defined in equation \ref{equation:undir_density}, the density for the graph formed by the University's web pages is \textbf{0.0128}.
+
+\textbf{Degree distribution.} Figure \ref{fig:6} shows the degree distribution for this network's graph. Figure \ref{fig:otu_deg_dist} shows the degree distribution in normal scale. Figure \ref{otu_deg_dist_log_log} shows the degree distribution in log scale. Doing log-log scaling allows us to better see what the degree distribution looks like. The first figure may indicate that the degree distribution for this graph follows a power law. This would mean that a great number of nodes have low degree, meaning that web page does not reference may pages, and few pages refer it back.
+
+\begin{figure}
+    \centering
+    \subfloat[\centering Degree distribution]{{\includegraphics[width=0.45\textwidth]{img/otu_degree_distribution.png}\label{fig:otu_deg_dist}}}
+    \qquad
+    \subfloat[\centering Degree distribution (log-log)]{{\includegraphics[width=0.45\textwidth]{img/otu_log_log_degree_distribution.png}\label{otu_deg_dist_log_log}}}
+    \caption{Degree distributions}
+    \label{fig:6}
+\end{figure}
+
+\textbf{Average clustering coefficient.} Previously defined in equation \ref{equation:avg_clustering_coef}, the average clustering coefficient for the graph assembled by traversing all web pages in the University's domain is \textbf{0.456}.
+
+\textbf{Number of nodes in strongly connected component.} The number of nodes in the subgraph detected by querying the strongly connected component is \textbf{2225}.
+
+\textbf{Number of nodes in weakly connected component.} The number of nodes in the subgraph detected by querying the weakly connected component is \textbf{2916}.
+
+\textbf{Average path length in SCC.} For the strongly connected component of the graph, the average path length is \textbf{4.685}.
+
+\textbf{Average path length in WCC.} The average path length of the weakly connected component is \textbf{3.710}.
+
+\textbf{Diameter in SCC.} The diameter of the strongly connected component is \textbf{64}.
+
+\textbf{Diameter in WCC.} For the weakly connected component, however, NetworkX's implementation calculates is to be infinite because the directed graph is not strongly connected. Therefore, I calculated the diameter as though the graph is undirected. The diameter in this case becomes \textbf{8}.
+
+\textbf{Community detection.}
