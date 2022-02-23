@@ -1,4 +1,15 @@
 ''' IMPORTS '''
+
+# regular expression module
+import re
+
+# add logging capabilities
+import logging
+import logging.handlers
+
+# perform operating system actions
+import os
+
 # import HTML parser
 from bs4 import BeautifulSoup
 
@@ -25,7 +36,18 @@ from collections import deque
 import json
 '''END IMPORTS'''
 
+handler = logging.handlers.WatchedFileHandler(
+    os.environ.get("LOGFILE", "crawler.log"))
+formatter = logging.Formatter(logging.BASIC_FORMAT)
+handler.setFormatter(formatter)
+root = logging.getLogger()
+root.setLevel(os.environ.get("LOGLEVEL", "INFO"))
+root.addHandler(handler)
+
 '''GLOBAL VARIABLES'''
+# email regex
+email_regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
+
 # list of accepted domains
 university_domains = ['uoit', 'ontariotechu']
 
@@ -43,6 +65,11 @@ queue = deque()
 '''END GLOBALS VARIABLES'''
 
 ''' BEGIN FUNCTIONS '''
+# helper function to check if string is an email
+def is_email(string):
+    is_string_an_email = re.fullmatch(email_regex,string)
+    return is_string_an_email
+
 # helper function to get formatted current datetime
 def get_now():
     return datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -51,7 +78,10 @@ def get_now():
 def filter_non_http(url):
     splitted_url = urlsplit(url)
     scheme = splitted_url.scheme
+    netloc = splitted_url.netloc
     if scheme not in ['http', 'https']:
+        return False
+    if is_email(netloc):
         return False
     return True
 
@@ -67,6 +97,7 @@ def detect_bad_file_extensions(url):
 
 # lambda function to remove www. from URLs, trailing slashes, index pages and double slashes.
 def rstrip_url(url):
+    logging.warning('URL before splitting - '+url)
     splitted_url = urlsplit(url)
     netloc = splitted_url.netloc.replace("www.", "")
     path = splitted_url.path\
@@ -75,7 +106,9 @@ def rstrip_url(url):
         .replace('index.html', '')\
         .replace('//','/')\
         .rstrip('/')
+    logging.warning('Path after splitting - '+path)
     new_url = f'https://{netloc}{path}'.rstrip('/')
+    logging.warning('URL after splitting - ' + new_url)
     return new_url
 
 # lambda function to convert uoit domain to ontariotechu
@@ -164,7 +197,7 @@ def bfs(url):
 
             # 7) queue new URLs if they have not been queued yet
             for child in children:
-                if child not in queue   :
+                if child not in queue:
                     queue.append(child)
             
             # 8) add current node's adjacency list to graph
