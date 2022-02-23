@@ -3,9 +3,6 @@
 \subsection{Crawler Implementation}
 \begin{lstlisting}[language=Python]
 ''' IMPORTS '''
-# regular expression module
-import re
-
 # import HTML parser
 from bs4 import BeautifulSoup
 
@@ -33,9 +30,6 @@ import json
 '''END IMPORTS'''
 
 '''GLOBAL VARIABLES'''
-# email regex
-email_regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
-
 # list of accepted domains
 university_domains = ['uoit', 'ontariotechu']
 
@@ -53,11 +47,6 @@ queue = deque()
 '''END GLOBALS VARIABLES'''
 
 ''' BEGIN FUNCTIONS '''
-# helper function to check if string is an email
-def is_email(string):
-    is_string_an_email = re.fullmatch(email_regex,string)
-    return is_string_an_email
-
 # helper function to get formatted current datetime
 def get_now():
     return datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -67,8 +56,6 @@ def filter_non_http(url):
     splitted_url = urlsplit(url)
     scheme = splitted_url.scheme
     if scheme not in ['http', 'https']:
-        return False
-    if is_email(netloc):
         return False
     return True
 
@@ -221,8 +208,6 @@ if __name__ == '__main__':
 
 \subsection{Code Explanation}
 \subsubsection{Imports}
-The \textit{re} module provides functions to test and validate regular expressions. In this case it was used to check if a given string was a valid email.
-
 BeautifulSoup is responsible for converting the HTML string retrieved from the website into a serialized Python object. This allows for easy querying of all HTML tags and their attributes.
 
 The \textit{requests} library is used to perform HTTP GET requests. The actual web page information is stored in the response's \textit{content} property.
@@ -238,8 +223,6 @@ The \textit{deque} class was imported from module \textit{collections} to ease t
 Finally, the \textit{json} module was imported to dump the assembled graph into a JSON file. Because the crawling was a time-consuming task, having the graph readily available is important.
 
 \subsubsection{Global Variables}
-The \textit{email\_regex} variable holds the pattern used to match strings that contain valid email addresses. It is used in the \textit{is\_email} helper function.
-
 A \textit{university\_domains} list containing \textit{uoit} and \textit{ontariotechu} was used to hold the two University's known domains. It is employed on the filtering of URLs that point to outside of the University's network. This way I can keep crawl only the pages that belong and refer to the Ontario Tech University.
 
 The \textit{bad\_file\_extensions} list holds a few of the common file extensions that may be present on a URL. It, too, is used to filter off web pages that would host files. Since they are not actual web pages, it makes no sense to go through them.
@@ -251,8 +234,6 @@ The \textit{graph} variable is a dictionary that will be the assembled graph. Th
 Finally, the \textit{queue} variable starts as an empty queue. This queue is used to hold the web pages that have yet to be visited.
 
 \subsubsection{Functions}
-The \textit{is\_email} tests a string against a regular expression and verifies whether it is a valid email or not. It is used as a helper function in the \textit{filter\_non\_http} function.
-
 The \textit{get\_now} function is a wrapper for the \textit{datetime} function. It's only purpose is to return a formatted string containing the current date and time, for logging purposes.
 
 Next, the \textit{filter\_non\_http} function is a lambda function. It is used in a \textit{filter} list function to remove all URLs that are not HTTP or HTTPS schemes. An example of a URL that was removed was a \textit{mailto}.
@@ -278,11 +259,11 @@ After dumping the graph to a JSON file, the contents were read as a string and c
 \subsubsection{Weighted or unweighted?} This graph was modelled to have unweighted edges. The reason for this is that the objective was to only traverse the web pages within the University's domain. Therefore, the main interest was to know whether or not one web page has a hyperlink to another. However, even if it is desired to find the most referenced node, one can accomplish this by querying the graph for the node with the greatest in-degree.
 
 \subsubsection{Metrics}
-\textbf{Number of nodes.} The total number of nodes, that is, unique web pages within the University's domain is \textbf{2592}.
+\textbf{Number of nodes.} The total number of nodes, that is, unique web pages within the University's domain is \textbf{2593}.
 
-\textbf{Number of edges.} The total number of edges, that is, how many hyperlinks exist within the University's domain is \textbf{112137}.
+\textbf{Number of edges.} The total number of edges, that is, how many hyperlinks exist within the University's domain is \textbf{112355}.
 
-\textbf{Edge density.} Defined in equation \ref{equation:undir_density}, the density for the graph formed by the University's web pages is \textbf{0.0166}.
+\textbf{Edge density.} Defined in equation \ref{equation:undir_density}, the density for the graph formed by the University's web pages is \textbf{0.0167}.
 
 \textbf{Degree distribution.} Figure \ref{fig:6} shows the degree distribution for this network's graph. Figure \ref{fig:otu_deg_dist} shows the degree distribution in normal scale. Figure \ref{otu_deg_dist_log_log} shows the degree distribution in log scale. Doing log-log scaling allows us to better see what the degree distribution looks like. The first figure may indicate that the degree distribution for this graph follows a power law. This would mean that a great number of nodes have low degree, meaning that web page does not reference may pages, and few pages refer it back.
 
@@ -295,21 +276,21 @@ After dumping the graph to a JSON file, the contents were read as a string and c
     \label{fig:6}
 \end{figure}
 
-\textbf{Average clustering coefficient.} Previously defined in equation \ref{equation:avg_clustering_coef}, the average clustering coefficient for the graph assembled by traversing all web pages in the University's domain is \textbf{0.493}.
+\textbf{Average clustering coefficient.} Previously defined in equation \ref{equation:avg_clustering_coef}, the average clustering coefficient for the graph assembled by traversing all web pages in the University's domain is \textbf{0.492}.
 
 \textbf{Number of nodes in strongly connected component.} The number of nodes in the subgraph detected by querying the strongly connected component is \textbf{2343}.
 
-\textbf{Number of nodes in weakly connected component.} The number of nodes in the subgraph detected by querying the weakly connected component is \textbf{2592}.
+\textbf{Number of nodes in weakly connected component.} The number of nodes in the subgraph detected by querying the weakly connected component is \textbf{2593}.
 
-\textbf{Average path length in SCC.} For the strongly connected component of the graph, the average path length is \textbf{4.737}.
+\textbf{Average path length in SCC.} For the strongly connected component of the graph, the average path length is \textbf{4.738}.
 
-\textbf{Average path length in WCC.} The average path length of the weakly connected component is \textbf{4.261}.
+\textbf{Average path length in WCC.} The average path length of the weakly connected component is \textbf{4.259}.
 
 \textbf{Diameter in SCC.} The diameter of the strongly connected component is \textbf{63}.
 
 \textbf{Diameter in WCC.} For the weakly connected component, however, NetworkX's implementation calculates is to be infinite because the directed graph is not strongly connected. Therefore, I calculated the diameter as though the graph is undirected. The diameter in this case becomes \textbf{7}.
 
-\textbf{Community detection.} Running the Gilvan-Newman algorithm to detect communities renders us two communities from the graph formed by the University's web pages. The largest one has \textbf{2589 nodes}, and the second one has \textbf{3 nodes}. Due to the size of the graph, creating a good visualization is not possible, as seen in figure \ref{fig:7}. Therefore, I had to resource to extracting information that could capture an overall picture of the detected communities. From the largest community, depicted in blue in figure \ref{fig:7}, the node with both greatest in-degree and greatest out-degree is \textit{https://ontariotechu.ca}. The in-degree for this node is \textbf{2310} and the out-degree is \textbf{257}. As for the smaller community, depicted in red in figure \ref{fig:7}, the node with greatest in-degree is \textit{https://fr.mindsight.ontariotechu.ca} and the value is \textbf{2}. The node with greatest out-degree in the smaller community is \textit{https://mindsight.ontariotechu.ca} and the value is \textbf{1}. The communities found by the Gilvan-Newman algorithm were interesting. One would expect that all web pages within a domain would be closely intertwined, but that was not the case for Ontario Tech University. The web pages in the smallest community only have links to themselves, making it impossible to go back to the main community.
+\textbf{Community detection.} Running the Gilvan-Newman algorithm to detect communities renders us two communities from the graph formed by the University's web pages. The largest one has \textbf{2590 nodes}, and the second one has \textbf{3 nodes}. Due to the size of the graph, creating a good visualization is not possible, as seen in figure \ref{fig:7}. Therefore, I had to resource to extracting information that could capture an overall picture of the detected communities. From the largest community, depicted in blue in figure \ref{fig:7}, the node with both greatest in-degree and greatest out-degree is \textit{https://ontariotechu.ca}. The in-degree for this node is \textbf{2310} and the out-degree is \textbf{257}. As for the smaller community, depicted in red in figure \ref{fig:7}, the node with greatest in-degree is \textit{https://fr.mindsight.ontariotechu.ca} and the value is \textbf{2}. The node with greatest out-degree in the smaller community is \textit{https://mindsight.ontariotechu.ca} and the value is \textbf{1}. The communities found by the Gilvan-Newman algorithm were interesting. One would expect that all web pages within a domain would be closely intertwined, but that was not the case for Ontario Tech University. The web pages in the smallest community only have links to themselves, making it impossible to go back to the main community.
 
 \begin{figure}
     \centering
@@ -318,139 +299,39 @@ After dumping the graph to a JSON file, the contents were read as a string and c
     \label{fig:7}
 \end{figure}
 
-\textbf{Degree centrality.} For degree centrality, I opted to report all three degree centrality measures: degree, in-degree and out-degree. Tables \ref{table:degree_centrality_otu}, \ref{table:in_degree_centrality_otu}, and \ref{table:out_degree_centrality_otu} holds the top 10 most central nodes in the graph according to the degree centrality measure.
+\textbf{Degree centrality.} For degree centrality, I opted to report all three degree centrality measures: degree, in-degree and out-degree. Tables <>, <>, and <> holds the top 10 most central nodes in the graph.
 
 \begin{table}
-    \centering
-    \begin{tabular}{|c|p{0.7\linewidth}|c|}
-        \hline
-        \textbf{Rank} & \textbf{URL} & \textbf{Score} \\
-        \hline
-        1 & https://ontariotechu.ca & 0.991 \\ \hline
-        2 & https://ontariotechu.ca/future-students/undergraduate/campus-tours-and-events & 0.914 \\ \hline
-        3 & https://ontariotechu.ca/faculty\_staff & 0.912 \\ \hline
-        4 & https://ontariotechu.ca/virtualtour & 0.911 \\ \hline
-        5 & https://ontariotechu.ca/contact-us.php & 0.911 \\ \hline
-        6 & https://ontariotechu.ca/terms-of-use.php & 0.910 \\ \hline
-        7 & https://ontariotechu.ca/about & 0.910 \\ \hline
-        8 & https://ontariotechu.ca/about/campus-buildings & 0.910 \\ \hline
-        9 & https://usgc.ontariotechu.ca/governance & 0.832 \\ \hline
-        10 & https://hr.ontariotechu.ca/working\_at\_uoit/careers & 0.832 \\ \hline
-    \end{tabular}
-    \caption{Degree Centrality for OTU}
-    \label{table:degree_centrality_otu}
+    \begin{tabular}{|c|p{0.5\linewidth}|c|}
+            \hline
+            \textbf{Rank} & \textbf{URL} & \textbf{Score} \\
+            \hline
+            1 & https://ontariotechu.ca & 0.990 \\
+            \hline
+            2 & https://ontariotechu.ca/future-students/undergraduate/campus-tours-and-events & 0.913 \\
+            \hline
+            3 & https://ontariotechu.ca/faculty_staff & 0.912 \\
+            \hline
+            4 & https://ontariotechu.ca/contact-us.php & 0.910 \\
+            \hline
+            5 & https://ontariotechu.ca/virtualtour & 0.910 \\
+            \hline
+            6 & https://ontariotechu.ca/terms-of-use.php & 0.910 \\
+            \hline
+            7 & https://ontariotechu.ca/about & 0.909 \\
+            \hline
+            8 & https://ontariotechu.ca/about/campus-buildings & 0.909 \\
+            \hline
+            9 & https://accessibility.ontariotechu.ca & 0.831 \\
+            \hline
+            10 & https://hr.ontariotechu.ca/working_at_uoit/careers & 0.831 \\
+            \hline
+        \end{tabular}
+        \label{table:degree_centrality_otu}
 \end{table}
 
-\begin{table}
-    \centering
-    \begin{tabular}{|c|p{0.7\linewidth}|c|}
-        \hline
-        \textbf{Rank} & \textbf{URL} & \textbf{Score} \\
-        \hline
-        1 & https://ontariotechu.ca & 0.892 \\ \hline
-        2 & https://ontariotechu.ca/forms/online/view.php & 0.819 \\ \hline
-        3 & https://news.ontariotechu.ca/media-inquiries & 0.816 \\ \hline
-        4 & https://ontariotechu.ca/maps & 0.816 \\ \hline
-        5 & https://ontariotechu.ca/about & 0.816 \\ \hline
-        6 & https://ontariotechu.ca/future-students/undergraduate/campus-tours-and-events & 0.816 \\ \hline
-        7 & https://ontariotechu.ca/virtualtour & 0.816 \\ \hline
-        8 & https://usgc.ontariotechu.ca/governance & 0.816 \\ \hline
-        9 & https://hr.ontariotechu.ca/working\_at\_uoit/careers & 0.816 \\ \hline
-        10 & https://ontariotechu.ca/terms-of-use.php & 0.816 \\ \hline
-    \end{tabular}
-    \caption{In-Degree Centrality for OTU}
-    \label{table:in_degree_centrality_otu}
-\end{table}
+\textbf{Closeness centrality.}
 
-\begin{table}
-    \centering
-    \begin{tabular}{|c|p{0.7\linewidth}|c|}
-        \hline
-        \textbf{Rank} & \textbf{URL} & \textbf{Score} \\
-        \hline
-        1 & https://ontariotechu.ca & 0.099 \\ \hline
-        2 & https://ontariotechu.ca/faculty\_staff & 0.098 \\ \hline
-        3 & https://ontariotechu.ca/future-students/undergraduate/campus-tours-and-events & 0.097 \\ \hline
-        4 & https://ontariotechu.ca/connectwithus & 0.097 \\ \hline
-        5 & https://blog.ontariotechu.ca/all & 0.096 \\ \hline
-        6 & https://ontariotechu.ca/mycampus & 0.096 \\ \hline
-        7 & https://ontariotechu.ca/about/campus-buildings/downtown-oshawa & 0.096 \\ \hline
-        8 & https://ontariotechu.ca/apply & 0.095 \\ \hline
-        9 & https://ontariotechu.ca/future-students/viewbooks.php & 0.095 \\ \hline
-        10 & https://ontariotechu.ca/current-students/academic-calendars/academic-calendar-archive.php & 0.095 \\ \hline
-    \end{tabular}
-    \caption{Out-Degree Centrality for OTU}
-    \label{table:out_degree_centrality_otu}
-\end{table}
+\textbf{Betweenness centrality.}
 
-\textbf{Closeness centrality.} As for the closeness centrality measure, previously defined in equation \ref{equation:closeness_centrality}, table \ref{table:otu_closeness} summarizes the closeness centrality of the top 10 most central nodes.
-
-\begin{table}
-    \centering
-    \begin{tabular}{|c|p{0.7\linewidth}|c|}
-        \hline
-        \textbf{Rank} & \textbf{URL} & \textbf{Score} \\
-        \hline
-        1 & https://ontariotechu.ca & 0.891 \\ \hline
-        2 & https://ontariotechu.ca/forms/online/view.php & 0.827 \\ \hline
-        3 & https://ontariotechu.ca/maps & 0.824 \\ \hline
-        4 & https://news.ontariotechu.ca/media-inquiries & 0.824 \\ \hline
-        5 & https://ontariotechu.ca/about & 0.824 \\ \hline
-        6 & https://ontariotechu.ca/future-students/undergraduate/campus-tours-and-events & 0.824 \\ \hline
-        7 & https://ontariotechu.ca/virtualtour & 0.824 \\ \hline
-        8 & https://usgc.ontariotechu.ca/governance & 0.824 \\ \hline
-        9 & https://hr.ontariotechu.ca/working\_at\_uoit/careers & 0.824 \\ \hline
-        10 & https://ontariotechu.ca/terms-of-use.php & 0.824 \\ \hline
-    \end{tabular}
-    \caption{Closeness Centrality for OTU}
-    \label{table:otu_closeness}
-\end{table}
-
-\textbf{Betweenness centrality.} Previously defined in equation \ref{equation:betweenness_centrality}, table \ref{table:otu_betweenness} summarizes the 10 most central URLs in the University's domain, according to the betweenness centrality.
-
-\begin{table}
-    \centering
-    \begin{tabular}{|c|p{0.7\linewidth}|c|}
-        \hline
-        \textbf{Rank} & \textbf{URL} & \textbf{Score} \\
-        \hline
-        1 & https://blog.ontariotechu.ca & 0.284 \\ \hline
-        2 & https://blog.ontariotechu.ca/all & 0.214 \\ \hline
-        3 & https://ontariotechu.ca & 0.107 \\ \hline
-        4 & https://ontariotechu.ca/sites/library & 0.066 \\ \hline
-        5 & https://news.ontariotechu.ca/archives/2021/12/in-retrospect-ontario-tech-university-in-2021.php & 0.057 \\ \hline
-        6 & https://ontariotechu.ca/future-students/undergraduate/campus-tours-and-events & 0.043 \\ \hline
-        7 & https://ontariotechu.ca/faculty\_staff & 0.041 \\ \hline
-        8 & https://ontariotechu.ca/contact-us.php & 0.035 \\ \hline
-        9 & https://socialscienceandhumanities.ontariotechu.ca & 0.035 \\ \hline
-        10 & https://ontariotechu.ca/virtualtour & 0.035 \\ \hline
-    \end{tabular}
-    \caption{Betweenness Centrality for OTU}
-    \label{table:otu_betweenness}
-\end{table}
-
-\textbf{PageRank centrality.} Finally, the PageRank centrality measure will determine the nodes' centrality based on their in-degrees. Table \ref{table:otu_page_rank} summarizes the 10 most central nodes according to this centrality measure.
-
-\begin{table}
-    \centering
-    \begin{tabular}{|c|p{0.7\linewidth}|c|}
-        \hline
-        \textbf{Rank} & \textbf{URL} & \textbf{Score} \\
-        \hline
-        1 & https://ontariotechu.ca & 0.022 \\ \hline
-        2 & https://ontariotechu.ca/sites/library & 0.017 \\ \hline
-        3 & https://ontariotechu.ca/forms/online/view.php & 0.014 \\ \hline
-        4 & https://news.ontariotechu.ca/media-inquiries & 0.014 \\ \hline
-        5 & https://ontariotechu.ca/maps & 0.014 \\ \hline
-        6 & https://ontariotechu.ca/about & 0.014 \\ \hline
-        7 & https://ontariotechu.ca/future-students/undergraduate/campus-tours-and-events & 0.014 \\ \hline
-        8 & https://ontariotechu.ca/virtualtour & 0.014 \\ \hline
-        9 & https://usgc.ontariotechu.ca/governance & 0.014 \\ \hline
-        10 & https://hr.ontariotechu.ca/working\_at\_uoit/careers & 0.014 \\ \hline
-    \end{tabular}
-    \caption{Page Rank Centrality for OTU}
-    \label{table:otu_page_rank}
-\end{table}
-
-\subsubsection{Interpretation}
-This is my interpretation of the results. This is my interpretation of the results. This is my interpretation of the results. This is my interpretation of the results. This is my interpretation of the results. This is my interpretation of the results.
+\textbf{PageRank centrality.}
