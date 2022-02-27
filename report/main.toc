@@ -7,8 +7,8 @@
 \contentsline {subsubsection}{\numberline {2.1.4}Network 4}{6}{subsubsection.2.1.4}%
 \contentsline {subsubsection}{\numberline {2.1.5}Network 5}{7}{subsubsection.2.1.5}%
 \contentsline {subsubsection}{\numberline {2.1.6}Network 7}{7}{subsubsection.2.1.6}%
-\contentsline {section}{\numberline {3}Metrics of 6 networks}{8}{section.3}%
-\contentsline {subsection}{\numberline {3.1}Number of nodes}{8}{subsection.3.1}%
+\contentsline {section}{\numberline {3}Metrics of 6 networks}{7}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Number of nodes}{9}{subsection.3.1}%
 \contentsline {subsection}{\numberline {3.2}Number of edges}{9}{subsection.3.2}%
 \contentsline {subsection}{\numberline {3.3}Edge density}{9}{subsection.3.3}%
 \contentsline {subsection}{\numberline {3.4}Degree distribution}{9}{subsection.3.4}%
@@ -19,22 +19,22 @@
 \contentsline {subsection}{\numberline {3.9}Diameter of SCC}{12}{subsection.3.9}%
 \contentsline {subsection}{\numberline {3.10}Community detection}{12}{subsection.3.10}%
 \contentsline {subsection}{\numberline {3.11}Centrality Measures}{12}{subsection.3.11}%
-\contentsline {subsubsection}{\numberline {3.11.1}Network 1}{12}{subsubsection.3.11.1}%
+\contentsline {subsubsection}{\numberline {3.11.1}Network 1}{13}{subsubsection.3.11.1}%
 \contentsline {subsubsection}{\numberline {3.11.2}Network 2}{13}{subsubsection.3.11.2}%
-\contentsline {subsubsection}{\numberline {3.11.3}Network 3}{13}{subsubsection.3.11.3}%
+\contentsline {subsubsection}{\numberline {3.11.3}Network 3}{14}{subsubsection.3.11.3}%
 \contentsline {subsubsection}{\numberline {3.11.4}Network 4}{14}{subsubsection.3.11.4}%
 \contentsline {subsubsection}{\numberline {3.11.5}Network 5}{14}{subsubsection.3.11.5}%
 \contentsline {subsubsection}{\numberline {3.11.6}Network 7}{15}{subsubsection.3.11.6}%
-\contentsline {section}{\numberline {4}Insights}{17}{section.4}%
-\contentsline {section}{\numberline {5}Information Networks}{18}{section.5}%
-\contentsline {subsection}{\numberline {5.1}Crawler Implementation}{18}{subsection.5.1}%
-\contentsline {subsection}{\numberline {5.2}Code Explanation}{24}{subsection.5.2}%
-\contentsline {subsubsection}{\numberline {5.2.1}Imports}{24}{subsubsection.5.2.1}%
-\contentsline {subsubsection}{\numberline {5.2.2}Global Variables}{25}{subsubsection.5.2.2}%
-\contentsline {subsubsection}{\numberline {5.2.3}Functions}{26}{subsubsection.5.2.3}%
-\contentsline {subsubsection}{\numberline {5.2.4}Main}{27}{subsubsection.5.2.4}%
-\contentsline {subsection}{\numberline {5.3}Analyses}{27}{subsection.5.3}%
-\contentsline {subsubsection}{\numberline {5.3.1}Directed or undirected?}{27}{subsubsection.5.3.1}%
-\contentsline {subsubsection}{\numberline {5.3.2}Weighted or unweighted?}{28}{subsubsection.5.3.2}%
-\contentsline {subsubsection}{\numberline {5.3.3}Metrics}{28}{subsubsection.5.3.3}%
-\contentsline {subsubsection}{\numberline {5.3.4}Interpretation}{30}{subsubsection.5.3.4}%
+\contentsline {section}{\numberline {4}Insights}{15}{section.4}%
+\contentsline {section}{\numberline {5}Information Networks}{16}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Crawler Implementation}{16}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Code Explanation}{23}{subsection.5.2}%
+\contentsline {subsubsection}{\numberline {5.2.1}Imports}{23}{subsubsection.5.2.1}%
+\contentsline {subsubsection}{\numberline {5.2.2}Global Variables}{24}{subsubsection.5.2.2}%
+\contentsline {subsubsection}{\numberline {5.2.3}Functions}{24}{subsubsection.5.2.3}%
+\contentsline {subsubsection}{\numberline {5.2.4}Main}{26}{subsubsection.5.2.4}%
+\contentsline {subsection}{\numberline {5.3}Analyses}{26}{subsection.5.3}%
+\contentsline {subsubsection}{\numberline {5.3.1}Directed or undirected?}{26}{subsubsection.5.3.1}%
+\contentsline {subsubsection}{\numberline {5.3.2}Weighted or unweighted?}{26}{subsubsection.5.3.2}%
+\contentsline {subsubsection}{\numberline {5.3.3}Metrics}{26}{subsubsection.5.3.3}%
+\contentsline {subsubsection}{\numberline {5.3.4}Interpretation}{31}{subsubsection.5.3.4}%

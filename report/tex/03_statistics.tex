@@ -1,5 +1,5 @@
 \section{Metrics of 6 networks}
-In this section I will present some statistics about the 6 chosen networks. The results will be presented in tables. All metrics and plots were calculated and generated using the Python package NetworkX.
+In this section I will present some statistics about the 6 chosen networks. The results will be presented in tables. All metrics and plots were calculated and generated using the Python package NetworkX \cite{networkxcitation}.
 
 \begin{table}
     \centering
@@ -44,14 +44,14 @@ The number of edges of each graph will be the amount of connections that exist b
 Graph density tells us how connected nodes are between each other. If the density value is high, we say the graph is connected, if the density value is low, we say it is sparse. For undirected graphs, this metric can be calculated as
 \begin{equation}
     D_{undirected} = \frac{2|E|}{|N|(|N|-1)}
-    \label{equation:dir_density}
+    \label{equation:undir_density}
 \end{equation}
 and the density for directed graphs is defined as
 \begin{equation}
     D_{directed} = \frac{|E|}{|N|(|N|-1)}
-    \label{equation:undir_density}
+    \label{equation:dir_density}
 \end{equation}
-where $E$ is the number of edges and $V$ is the number of nodes in the graph.
+where $E$ is the number of edges and $N$ is the number of nodes in the graph.
 
 \subsection{Degree distribution}
 The degree distribution can superficially tell us what are the preferences for people when connecting to each other. Figure \ref{fig:4} plots the degree distributions for the 6 chosen networks.

@@ -223,11 +223,11 @@ if __name__ == '__main__':
 \subsubsection{Imports}
 The \textit{re} module provides functions to test and validate regular expressions. In this case it was used to check if a given string was a valid email.
 
-BeautifulSoup is responsible for converting the HTML string retrieved from the website into a serialized Python object. This allows for easy querying of all HTML tags and their attributes.
+\textit{BeautifulSoup} is responsible for converting the HTML string retrieved from the website into a serialized Python object. This allows for easy querying of all HTML tags and their attributes.
 
 The \textit{requests} library is used to perform HTTP GET requests. The actual web page information is stored in the response's \textit{content} property.
 
-From \textit{urllib} I imported the urlsplit function to easily split the URL into scheme, domain, and path. Query string parameters were ignored. In the same line of though, \textit{tldextract} was also used to easily extract the domain of the URL and change it in a lambda function from \textit{uoit} to \textit{ontariotechu} if it was the case.
+From \textit{urllib} I imported the \textit{urlsplit} function to easily split the URL into scheme, domain, and path. Query string parameters were ignored. In the same line of thought, \textit{tldextract} was also used to easily extract the domain of the URL and change it in a lambda function from \textit{uoit} to \textit{ontariotechu} if it was the case.
 
 The \textit{sleep} function from module \textit{time} was imported to force a 1-second wait before issuing the next HTTP request. This was done to avoid throttling, which would slow down the crawler's activity, and to prevent the domain from locking out my IP.
 
@@ -240,7 +240,7 @@ Finally, the \textit{json} module was imported to dump the assembled graph into 
 \subsubsection{Global Variables}
 The \textit{email\_regex} variable holds the pattern used to match strings that contain valid email addresses. It is used in the \textit{is\_email} helper function.
 
-A \textit{university\_domains} list containing \textit{uoit} and \textit{ontariotechu} was used to hold the two University's known domains. It is employed on the filtering of URLs that point to outside of the University's network. This way I can keep crawl only the pages that belong and refer to the Ontario Tech University.
+A \textit{university\_domains} list containing \textit{uoit} and \textit{ontariotechu} was used to hold the two University's known domains. It is employed on the filtering of URLs that point to outside of the University's network. This way I can keep crawling only the pages that belong and refer to the Ontario Tech University domain.
 
 The \textit{bad\_file\_extensions} list holds a few of the common file extensions that may be present on a URL. It, too, is used to filter off web pages that would host files. Since they are not actual web pages, it makes no sense to go through them.
 
@@ -251,7 +251,7 @@ The \textit{graph} variable is a dictionary that will be the assembled graph. Th
 Finally, the \textit{queue} variable starts as an empty queue. This queue is used to hold the web pages that have yet to be visited.
 
 \subsubsection{Functions}
-The \textit{is\_email} tests a string against a regular expression and verifies whether it is a valid email or not. It is used as a helper function in the \textit{filter\_non\_http} function.
+The \textit{is\_email} tests a string against a regular expression and verifies whether it is a valid email address or not. It is used as a helper function in the \textit{filter\_non\_http} function.
 
 The \textit{get\_now} function is a wrapper for the \textit{datetime} function. It's only purpose is to return a formatted string containing the current date and time, for logging purposes.
 
@@ -261,9 +261,9 @@ The \textit{detect\_bad\_file\_extensions} function is another lambda filter fun
 
 Following the list of helper functions, the \textit{rstrip\_url} is another lambda function. This one, on the other hand, is used in a list mapping. It works by splitting a URL and altering the path by removing the \textbf{www} subdomain, trailing slashes and any files that are index files (HTML or PHP). This function then returns the adjusted URL.
 
-The next lambda function is called \textit{uoit\_to\_ontariotechu}. The sole purpose of this function is to map all URLs that are in the UOIT domain to Ontario Tech University's domain. This avoids adding nodes to the graph that are different in name, but that point to the same content.
+The next lambda function is called \textit{uoit\_to\_ontariotechu}. The sole purpose of this function is to map all URLs that are in the UOIT domain to Ontario Tech University's domain. This avoids adding nodes to the graph that are different in name, but point to the same content.
 
-Next, the core of the BFS algorithm, is the \textit{generate\_children} function. It works by trying to perform an HTTP GET request. When the request fails by any reason, I say that no children were found, since no web page was collected and no hyper links are present. If the request does not fail, I collect the content (namely, the HTML page as a string), parse it with \textit{BeautifulSoup}, query all anchor HTML tags, then try to collect every href attribute from the anchors. Next, I process all hrefs using a series of mappings and filters. I first filter off those URLs that are not in the UOIT/Ontario Tech University domain. Then the remaining URLs are filtered to remove every scheme that is not HTTP not HTTPS. The remaining URLs are again filtered to remove those that host files. Next, I map the URLs to remove trailing slashes and index pages. Finally, the remaining set of URLs is mapped again, but this time to change all UOIT domains into Ontario Tech University domains. After this series of mappings and filters, the remaining URLs are put into a set, which in Python removes duplicates from any list, and returned. This finishes the execution of the \textit{generate\_children} function.
+Next, the core of the BFS algorithm, is the \textit{generate\_children} function. It works by trying to perform an HTTP GET request. When the request fails by any reason, I say that no children were found, since no web page was collected and no hyperlinks are present. If the request does not fail, I collect the content (namely, the HTML page as a string), parse it with \textit{BeautifulSoup}, query all anchor HTML tags, then try to collect every \textit{href} attribute from the anchors. Next, I process all \textit{hrefs} using a series of mappings and filters. I first filter off those URLs that are not in the UOIT/Ontario Tech University domain. Then the remaining URLs are filtered to remove every scheme that is not HTTP nor HTTPS. The remaining URLs are again filtered to remove those that host files. Next, I map the URLs to remove trailing slashes and index pages. Finally, the remaining set of URLs is mapped again, but this time to change all UOIT domains into Ontario Tech University domains. After this series of mappings and filters, the remaining URLs are put into a set, which Python removes duplicates from any list, and returned. This finishes the execution of the \textit{generate\_children} function.
 
 Lastly, the \textit{bfs} function is the actual implementation of the Breadth First Search algorithm. It starts by pushing to the queue the URL that was passed as a parameter. Then, until the queue is not empty, it dequeues a node that has not been visited yet and gets the current list of nodes in the graph. If the dequeued node is not a node in the graph, expand the graph by generating the current node's children. Then, for each child of the current node, add it to the queue if it has not been queued yet, then add all children as the adjacency list of the current node in the graph. If the dequeued node is in the list of nodes in the graph, skip it to avoid performing unnecessary HTTP requests. When the queue is empty, the function dumps the assembled graph to a JSON file for persistent storage and avoid running the crawler every time the graph is needed.
 
@@ -278,13 +278,13 @@ After dumping the graph to a JSON file, the contents were read as a string and c
 \subsubsection{Weighted or unweighted?} This graph was modelled to have unweighted edges. The reason for this is that the objective was to only traverse the web pages within the University's domain. Therefore, the main interest was to know whether or not one web page has a hyperlink to another. However, even if it is desired to find the most referenced node, one can accomplish this by querying the graph for the node with the greatest in-degree.
 
 \subsubsection{Metrics}
-\textbf{Number of nodes.} The total number of nodes, that is, unique web pages within the University's domain is \textbf{2592}.
+\textbf{Number of nodes.} My crawler was able to find a total of \textbf{2,592} nodes, that is, unique web pages within the University's domain.
 
-\textbf{Number of edges.} The total number of edges, that is, how many hyperlinks exist within the University's domain is \textbf{112137}.
+\textbf{Number of edges.} The total number of edges, that is, how many hyperlinks exist within the University's domain is \textbf{112,137}.
 
-\textbf{Edge density.} Defined in equation \ref{equation:undir_density}, the density for the graph formed by the University's web pages is \textbf{0.0166}.
+\textbf{Edge density.} Defined in equation \ref{equation:dir_density}, the density for the graph formed by the University's web pages is \textbf{0.0166}.
 
-\textbf{Degree distribution.} Figure \ref{fig:6} shows the degree distribution for this network's graph. Figure \ref{fig:otu_deg_dist} shows the degree distribution in normal scale. Figure \ref{otu_deg_dist_log_log} shows the degree distribution in log scale. Doing log-log scaling allows us to better see what the degree distribution looks like. The first figure may indicate that the degree distribution for this graph follows a power law. This would mean that a great number of nodes have low degree, meaning that web page does not reference may pages, and few pages refer it back.
+\textbf{Degree distribution.} Figure \ref{fig:6} shows the degree distribution for this network's graph. Figure \ref{fig:otu_deg_dist} shows the degree distribution in normal scale. Figure \ref{otu_deg_dist_log_log} shows the degree distribution in log scale. Doing log-log scaling allows us to better see what the degree distribution looks like. The former may indicate that the degree distribution for this graph follows a power law. This would mean that a great number of nodes have low degree, meaning that web page does not reference may pages, and few pages refer it back. However, the latter shows that this is not the case, and there seems to be no preference when referring other web pages.
 
 \begin{figure}
     \centering
@@ -297,9 +297,9 @@ After dumping the graph to a JSON file, the contents were read as a string and c
 
 \textbf{Average clustering coefficient.} Previously defined in equation \ref{equation:avg_clustering_coef}, the average clustering coefficient for the graph assembled by traversing all web pages in the University's domain is \textbf{0.493}.
 
-\textbf{Number of nodes in strongly connected component.} The number of nodes in the subgraph detected by querying the strongly connected component is \textbf{2343}.
+\textbf{Number of nodes in strongly connected component.} The number of nodes in the subgraph detected by querying the strongly connected component is \textbf{2,343}.
 
-\textbf{Number of nodes in weakly connected component.} The number of nodes in the subgraph detected by querying the weakly connected component is \textbf{2592}.
+\textbf{Number of nodes in weakly connected component.} The number of nodes in the subgraph detected by querying the weakly connected component is \textbf{2,592}.
 
 \textbf{Average path length in SCC.} For the strongly connected component of the graph, the average path length is \textbf{4.737}.
 
@@ -307,9 +307,9 @@ After dumping the graph to a JSON file, the contents were read as a string and c
 
 \textbf{Diameter in SCC.} The diameter of the strongly connected component is \textbf{63}.
 
-\textbf{Diameter in WCC.} For the weakly connected component, however, NetworkX's implementation calculates is to be infinite because the directed graph is not strongly connected. Therefore, I calculated the diameter as though the graph is undirected. The diameter in this case becomes \textbf{7}.
+\textbf{Diameter in WCC.} For the weakly connected component, however, NetworkX's implementation calculates it to be infinite because it detected the directed graph not to be strongly connected. Therefore, I calculated the diameter as though the graph is undirected. The diameter in this case is \textbf{7}.
 
-\textbf{Community detection.} Running the Gilvan-Newman algorithm to detect communities renders us two communities from the graph formed by the University's web pages. The largest one has \textbf{2589 nodes}, and the second one has \textbf{3 nodes}. Due to the size of the graph, creating a good visualization is not possible, as seen in figure \ref{fig:7}. Therefore, I had to resource to extracting information that could capture an overall picture of the detected communities. From the largest community, depicted in blue in figure \ref{fig:7}, the node with both greatest in-degree and greatest out-degree is \textit{https://ontariotechu.ca}. The in-degree for this node is \textbf{2310} and the out-degree is \textbf{257}. As for the smaller community, depicted in red in figure \ref{fig:7}, the node with greatest in-degree is \textit{https://fr.mindsight.ontariotechu.ca} and the value is \textbf{2}. The node with greatest out-degree in the smaller community is \textit{https://mindsight.ontariotechu.ca} and the value is \textbf{1}. The communities found by the Gilvan-Newman algorithm were interesting. One would expect that all web pages within a domain would be closely intertwined, but that was not the case for Ontario Tech University. The web pages in the smallest community only have links to themselves, making it impossible to go back to the main community.
+\textbf{Community detection.} Running the Gilvan-Newman algorithm to detect communities renders us two communities from the graph formed by the University's web pages. The largest one has \textbf{2,589 nodes}, and the second one has \textbf{3 nodes}. Due to the size of the graph, creating a good visualization is not possible, as seen in figure \ref{fig:7}. Therefore, I had to resource to extracting information that could capture an overall picture of the detected communities. From the largest community, depicted in blue in figure \ref{fig:7}, the node with both greatest in-degree and greatest out-degree is \textit{https://ontariotechu.ca}. The in-degree for this node is \textbf{2,310} and the out-degree is \textbf{257}. As for the smaller community, depicted in red in figure \ref{fig:7}, the node with greatest in-degree is \textit{https://fr.mindsight.ontariotechu.ca} and the value is \textbf{2}. The node with greatest out-degree in the smaller community is \textit{https://mindsight.ontariotechu.ca} and the value is \textbf{1}. The communities found by the Gilvan-Newman algorithm were interesting. One would expect that all web pages within a domain would be closely intertwined, but that was not the case for Ontario Tech University. The web pages in the smallest community only have links to themselves, making it impossible to go back to the main community.
 
 \begin{figure}
     \centering
@@ -429,7 +429,7 @@ After dumping the graph to a JSON file, the contents were read as a string and c
     \label{table:otu_betweenness}
 \end{table}
 
-\textbf{PageRank centrality.} Finally, the PageRank centrality measure will determine the nodes' centrality based on their in-degrees. Table \ref{table:otu_page_rank} summarizes the 10 most central nodes according to this centrality measure.
+\textbf{PageRank centrality.} Finally, the PageRank \cite{pagerankcitation} centrality measure will determine the nodes' centrality based on their in-degrees. Table \ref{table:otu_page_rank} summarizes the 10 most central nodes according to this centrality measure.
 
 \begin{table}
     \centering
@@ -453,4 +453,10 @@ After dumping the graph to a JSON file, the contents were read as a string and c
 \end{table}
 
 \subsubsection{Interpretation}
-This is my interpretation of the results. This is my interpretation of the results. This is my interpretation of the results. This is my interpretation of the results. This is my interpretation of the results. This is my interpretation of the results.
+After crawling the Ontario Tech University's domain and assembling the graph its pages create, we can obtain information by studying the extracted metrics. While some are obvious, some are not.
+
+Given the amount of edges, one would think that the network formed by the web pages would be dense. However, after calculating the density we see that this is not the case. On the contrary, the density was close to zero, indicating that there are not enough edges to make the nodes highly connected with each other, which would impact on other metrics.
+
+The degree distribution does not follow a power law, indicating that this network lacks some social features, as opposed to some networks from the first part of this report. This makes sense because the existence of links to other web pages does not rely on superfluous characteristics, such as what interests they have in common. They are objective and exist only to serve a purpose.
+
+Analyzing the components and communities of this network allows us to identify that there is one specific group of pages that are intertwined. The second, smaller community as well as the nodes in the outer part of the ring (refer to figure \ref{fig:7}) are final nodes, i.e. nodes that are impossible to leave, in case one traverses the graph in search of a path.
